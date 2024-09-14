@@ -22,6 +22,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    transition: background-color 0.05s ease-in-out, color 0.05s ease-in-out;
+
 }
 
 html,
@@ -232,4 +234,33 @@ body{
     color: var(--primary-color);
     font-weight: bold;
     flex: 1; /* Allow flexibility for variable content */
+}
+/* prefer color scheme dark */
+body.dark-theme {
+    background-color: var(--dark-theme-bg-color);
+    color: var(--dark-theme-text-color);
+
+    .card {
+        background-color: var(--dark-theme-card-bg-color);
+    }
+    .overview-item {
+        background-color: var(--dark-theme-card-bg-color);
+    }
+    .overview-item h3 {
+        color: var(--dark-theme-text-color);
+    }
+    .percentage {
+        color: var(--dark-theme-text-color);
+    }
+    .followers-grow {
+        color: var(--primary-color);
+    }
+    
+    .card .followers-num span {
+        color: var(--dark-theme-text-color);
+    }
+    .yt .followers-grow {
+        color: var(--bright-red-color);
+    }
+    
 }
