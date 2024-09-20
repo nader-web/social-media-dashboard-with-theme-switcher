@@ -1,43 +1,27 @@
 // Get the theme toggle element
 const themeToggle = document.getElementById('themeToggle');
 
-if (themeToggle) {
-  // Function to toggle the theme
-  function toggleTheme() {
-    // Check if the current theme is dark
-    if (document.body.classList.contains('dark-theme')) {
-      // If it is, remove the dark-theme class and set the light-theme class
-      document.body.classList.remove('dark-theme');
-      document.body.classList.add('light-theme');
-    } else {
-      // If it's not, remove the light-theme class and set the dark-theme class
-      document.body.classList.remove('light-theme');
-      document.body.classList.add('dark-theme');
-    }
-
-    // Store the selected theme in local storage
-    try {
-      localStorage.setItem('selectedTheme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
-    } catch (error) {
-      console.error('Error setting local storage:', error);
-    }
+// when page is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // check user preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    themeToggle.checked = true;
+    document.body.classList.add('dark-theme');
   }
 
-  // Event listener for the theme toggle
-  themeToggle.addEventListener('change', toggleTheme);
-
-  // Restore the selected theme from local storage on page load
-  function restoreTheme() {
-    try {
-      const selectedTheme = localStorage.getItem('selectedTheme');
-      if (selectedTheme) {
-        document.body.classList.add(selectedTheme === 'dark' ? 'dark-theme' : 'light-theme');
-        themeToggle.checked = selectedTheme === 'dark';
-      }
-    } catch (error) {
-      console.error('Error restoring theme from local storage:', error);
-    }
+  // check local storage
+  if (localStorage.getItem('theme') === 'dark') {
+    themeToggle.checked = true;
+    document.body.classList.add('dark-theme');
   }
-
-  restoreTheme();
-}
+})
+// add event listener
+themeToggle.addEventListener('change', () => {
+  if (themeToggle.checked) {
+    document.body.classList.add('dark-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove('dark-theme');
+    localStorage.setItem('theme', 'light');
+  }
+})
